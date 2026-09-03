@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# OEP — Publica out/ en la rama gh-pages (GitHub Pages) sin tocar el árbol de trabajo.
-# Uso: npm run build && bash scripts/deploy-gh-pages.sh
+# OEP — Compila para GitHub Pages y publica out/ en la rama gh-pages
+# sin tocar el árbol de trabajo.
+# Uso: bash scripts/deploy-gh-pages.sh
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -8,7 +9,8 @@ REMOTE="https://github.com/alfredosvaldo/oep-web.git"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
-[ -d "$ROOT/out" ] || { echo "No existe out/ — corre npm run build primero." >&2; exit 1; }
+# GHPAGES=1 activa basePath/assetPrefix /oep-web (ver next.config.mjs)
+(cd "$ROOT" && GHPAGES=1 npm run build)
 touch "$ROOT/out/.nojekyll"   # evita que Jekyll descarte _next/ al publicar
 
 git clone -q --no-hardlinks "$ROOT" "$TMP/repo"

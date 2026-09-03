@@ -17,12 +17,14 @@ export interface SearchIndex {
 export const SEA_FICHA = (id: number) =>
   `https://seia.sea.gob.cl/expediente/expediente.php?id_expediente=${id}&modo=ficha`;
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 let cache: Promise<SearchIndex> | null = null;
 
 /** Se descarga bajo demanda (≈5 MB raw / ≈1,5 MB gz), típicamente al primer foco en el buscador. */
 export function fetchSearchIndex(): Promise<SearchIndex> {
   if (!cache) {
-    cache = fetch('/data/search/index.json').then((res) => {
+    cache = fetch(`${BASE}/data/search/index.json`).then((res) => {
       if (!res.ok) throw new Error(`No se pudo cargar search/index.json (${res.status})`);
       return res.json();
     });

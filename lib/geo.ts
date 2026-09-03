@@ -33,11 +33,13 @@ export const VISTA_BBOX: { lon: [number, number]; lat: [number, number] } = {
   lat: [-56.5, -17],
 };
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 let geoPointsCache: Promise<GeoPoints> | null = null;
 export function fetchGeoPoints(): Promise<GeoPoints> {
   // El hero y la sección de mapa comparten la misma descarga (≈3 MB)
   if (!geoPointsCache) {
-    geoPointsCache = fetch('/data/geo/points.json').then((res) => {
+    geoPointsCache = fetch(`${BASE}/data/geo/points.json`).then((res) => {
       if (!res.ok) throw new Error(`No se pudo cargar geo/points.json (${res.status})`);
       return res.json();
     });
@@ -46,7 +48,7 @@ export function fetchGeoPoints(): Promise<GeoPoints> {
 }
 
 export async function fetchChileOutline(): Promise<ChileOutline> {
-  const res = await fetch('/data/geo/chile.json');
+  const res = await fetch(`${BASE}/data/geo/chile.json`);
   if (!res.ok) throw new Error(`No se pudo cargar geo/chile.json (${res.status})`);
   return res.json();
 }

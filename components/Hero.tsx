@@ -8,6 +8,7 @@ import type { Kpis } from '@/lib/kpis';
 import { fmtInt, fmtMM, fmtBN, fmtDeltaPct } from '@/lib/format';
 
 const RISE = 'oep-rise';
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 // El mapa vivo pesa (~180 kB echarts + dataset): se monta solo en cliente.
 const HeroMap = dynamic(() => import('@/components/HeroMap'), { ssr: false });
@@ -60,11 +61,11 @@ export default function Hero({ k }: { k: Kpis | null }) {
         muted
         loop
         playsInline
-        poster="/video/hero-poster.jpg"
+        poster={`${BASE}/video/hero-poster.jpg`}
         aria-hidden="true"
         tabIndex={-1}
       >
-        <source src="/video/hero-loop.mp4" type="video/mp4" />
+        <source src={`${BASE}/video/hero-loop.mp4`} type="video/mp4" />
       </video>
       {/* Capa 2: mapa vivo e interactivo */}
       <HeroMap />

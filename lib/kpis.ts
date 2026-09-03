@@ -48,14 +48,17 @@ export interface AggFile {
   items: AggItem[];
 }
 
+// Prefijo de despliegue ('' en local, '/oep-web' en GitHub Pages — ver next.config.mjs)
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export async function fetchKpis(): Promise<Kpis> {
-  const res = await fetch('/data/kpis.json');
+  const res = await fetch(`${BASE}/data/kpis.json`);
   if (!res.ok) throw new Error(`No se pudo cargar kpis.json (${res.status})`);
   return res.json();
 }
 
 export async function fetchAgg(dimension: 'region' | 'sector' | 'titular' | 'tipologia' | 'estado'): Promise<AggFile> {
-  const res = await fetch(`/data/agg/${dimension}.json`);
+  const res = await fetch(`${BASE}/data/agg/${dimension}.json`);
   if (!res.ok) throw new Error(`No se pudo cargar agg/${dimension}.json (${res.status})`);
   return res.json();
 }
