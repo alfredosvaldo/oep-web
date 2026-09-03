@@ -9,6 +9,7 @@ TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
 [ -d "$ROOT/out" ] || { echo "No existe out/ — corre npm run build primero." >&2; exit 1; }
+touch "$ROOT/out/.nojekyll"   # evita que Jekyll descarte _next/ al publicar
 
 git clone -q --no-hardlinks "$ROOT" "$TMP/repo"
 cd "$TMP/repo"
