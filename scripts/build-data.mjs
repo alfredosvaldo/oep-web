@@ -482,7 +482,7 @@ written.push(await emit('search/projects.json', manifest));
 const SEA_RE = /id_expediente=(\d+)/;
 const heroIndex = sorted.map((p) => {
   const m = p.link ? p.link.match(SEA_RE) : null;
-  return { n: p.nombre, ti: p.titular, rg: p.region, m: Math.round(p.inversion_mmu), eg: p.estado_grupo, sea: m ? Number(m[1]) : null };
+  return { n: p.nombre, ti: p.titular, rg: p.region, m: Math.round(p.inversion_mmu), eg: p.estado_grupo, fp: p.fecha_presentacion, sea: m ? Number(m[1]) : null };
 });
 written.push(await emit('search/index.json', { total: heroIndex.length, proyectos: heroIndex }));
 

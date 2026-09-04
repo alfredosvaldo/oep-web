@@ -6,6 +6,7 @@ export interface SearchRec {
   rg: string;  // región
   m: number;   // inversión US$ MM
   eg: string;  // estado grupo
+  fp: string;  // fecha de presentación (YYYY-MM-DD)
   sea: number | null; // id_expediente SEA (para link directo a la ficha)
 }
 
