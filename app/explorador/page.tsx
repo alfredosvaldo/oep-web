@@ -28,7 +28,7 @@ export default function Explorador() {
   }, []);
 
   const regiones = useMemo(
-    () => (index ? [...new Set(index.proyectos.map((p) => p.rg))].sort((a, b) => a.localeCompare(b, 'es')) : []),
+    () => (index ? Array.from(new Set(index.proyectos.map((p) => p.rg))).sort((a, b) => a.localeCompare(b, 'es')) : []),
     [index],
   );
 
