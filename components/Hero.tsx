@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import CountUp from '@/components/CountUp';
 import HeroSearch from '@/components/HeroSearch';
@@ -21,19 +21,22 @@ const HeroMap = dynamic(() => import('@/components/HeroMap'), { ssr: false });
  */
 export default function Hero({ k }: { k: Kpis | null }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [mapListo, setMapListo] = useState(false);
+  // El mapa vivo reemplaza al video: se apaga la capa de video (fade + pause)
+  const onMapReady = useCallback(() => setMapListo(true), []);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     const v = videoRef.current;
     if (!v) return;
     const apply = () => {
-      if (mq.matches) v.pause();
+      if (mq.matches || mapListo) v.pause();
       else v.play().catch(() => undefined);
     };
     apply();
     mq.addEventListener('change', apply);
     return () => mq.removeEventListener('change', apply);
-  }, []);
+  }, [mapListo]);
 
   const q = k?.ultimo_trimestre;
   const dProy = q ? (q.proyectos - q.proyectos_previo) / q.proyectos_previo : undefined;
@@ -56,7 +59,9 @@ export default function Hero({ k }: { k: Kpis | null }) {
       {/* Capa 1: video ambiental (respaldo mientras el mapa carga / reduced motion) */}
       <video
         ref={videoRef}
-        className="absolute inset-0 h-full w-full object-cover opacity-90"
+        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+          mapListo ? 'opacity-0' : 'opacity-90'
+        }`}
         autoPlay
         muted
         loop
@@ -68,7 +73,7 @@ export default function Hero({ k }: { k: Kpis | null }) {
         <source src={`${BASE}/video/hero-loop.mp4`} type="video/mp4" />
       </video>
       {/* Capa 2: mapa vivo e interactivo */}
-      <HeroMap />
+      <HeroMap onReady={onMapReady} />
 
       {/* Veladuras de legibilidad */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-oep-slate/85 via-oep-slate/30 to-transparent" />

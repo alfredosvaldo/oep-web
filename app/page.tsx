@@ -6,6 +6,8 @@ import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
 import CountUp from '@/components/CountUp';
 import MapSection from '@/components/MapSection';
+import TrendSection from '@/components/TrendSection';
+import MegaprojectsSection from '@/components/MegaprojectsSection';
 import { fetchKpis, type Kpis } from '@/lib/kpis';
 import { fmtInt, fmtMM, fmtBN, fmtDeltaPct } from '@/lib/format';
 
@@ -85,6 +87,10 @@ export default function Home() {
         {k && <PulseStrip k={k} />}
 
         {k && <MapSection carteraMmu={k.evaluacion.inversion_mmu} carteraN={k.evaluacion.proyectos} />}
+
+        <TrendSection />
+
+        <MegaprojectsSection />
       </main>
       <Footer />
     </>

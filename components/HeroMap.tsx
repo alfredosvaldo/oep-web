@@ -34,7 +34,7 @@ type Row = { value: [number, number, number, number, number]; idx: number };
  * en bucle, con deriva de cámara suave. Al pasar el cursor se pausa y cada
  * punto es explorado (tooltip). Es el mismo dataset que la sección «mapa».
  */
-export default function HeroMap() {
+export default function HeroMap({ onReady }: { onReady?: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const [data, setData] = useState<{ geo: GeoPoints; outline: ChileOutline } | null>(null);
   const [estado, setEstado] = useState<{ anio: number; playing: boolean; progreso: number }>({
@@ -46,12 +46,16 @@ export default function HeroMap() {
   useEffect(() => {
     let alive = true;
     Promise.all([fetchGeoPoints(), fetchChileOutline()])
-      .then(([geo, outline]) => alive && setData({ geo, outline }))
+      .then(([geo, outline]) => {
+        if (!alive) return;
+        setData({ geo, outline });
+        onReady?.();
+      })
       .catch(() => undefined);
     return () => {
       alive = false;
     };
-  }, []);
+  }, [onReady]);
 
   useEffect(() => {
     if (!data || !ref.current) return;
