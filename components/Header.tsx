@@ -18,16 +18,16 @@ export function Logo({ className = 'h-6 w-6' }: { className?: string }) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.5"
+      strokeWidth="1.25"
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
       aria-hidden="true"
     >
       {/* Caja abierta a un solo trazo, sin rellenos */}
-      <path d="M4 9 12 4.5 20 9v7l-8 4.5L4 16V9Z" />
-      <path d="M4 9l8 4.5L20 9M12 13.5V20.5" />
-      <path d="M12 4.5 10 1.5 3 4.5 4 9" />
+      <path d="M4 9.25 12 5 20 9.25v7.5L12 21 4 16.75v-7.5Z" />
+      <path d="M4 9.25 12 13.5 20 9.25M12 13.5V21" />
+      <path d="M12 5 10 1.25 2 5.5 4 9.25" />
     </svg>
   );
 }
