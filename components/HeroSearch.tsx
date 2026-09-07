@@ -67,11 +67,11 @@ export default function HeroSearch() {
 
   return (
     <div ref={boxRef} className="relative mt-9 max-w-xl">
-      <label htmlFor="oep-buscar" className="oep-label text-slate-300">
+      <label htmlFor="oep-buscar" className="oep-label text-slate-500">
         Buscar en {index ? `${index.total.toLocaleString('es-CL')} ` : 'los '}expedientes
       </label>
-      <div className="mt-2 flex items-center gap-3 rounded-lg border border-white/20 bg-white/10 px-4 backdrop-blur-md transition-colors focus-within:border-oep-emerald">
-        <svg viewBox="0 0 20 20" className="h-4 w-4 shrink-0 text-slate-300" fill="none" aria-hidden="true">
+      <div className="mt-2 flex items-center gap-3 rounded-lg border border-slate-300 bg-white px-4 transition-colors focus-within:border-oep-slate">
+        <svg viewBox="0 0 20 20" className="h-4 w-4 shrink-0 text-slate-400" fill="none" aria-hidden="true">
           <circle cx="9" cy="9" r="6" stroke="currentColor" strokeWidth="1.6" />
           <path d="m13.5 13.5 3.5 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
         </svg>
@@ -94,12 +94,12 @@ export default function HeroSearch() {
             if (e.key === 'Escape') setOpen(false);
           }}
           placeholder="Proyecto, titular o región… (p. ej. Escondida, Enel, Antofagasta)"
-          className="w-full bg-transparent py-3.5 text-[15px] text-white placeholder:text-slate-400 focus:outline-none"
+          className="w-full bg-transparent py-3.5 text-[15px] text-oep-slate placeholder:text-slate-400 focus:outline-none"
         />
         {loading && <span className="font-mono text-[11px] text-slate-400">cargando…</span>}
       </div>
 
-      {error && <p className="mt-2 text-[12px] text-oep-copper">No se pudo cargar el índice: {error}</p>}
+      {error && <p className="mt-2 text-[12px] text-oep-copper-dark">No se pudo cargar el índice: {error}</p>}
 
       {open && value.trim().length >= 2 && index && (
         <ul className="absolute inset-x-0 top-full z-30 mt-2 overflow-hidden rounded-lg border border-slate-200 bg-white text-oep-slate shadow-2xl">

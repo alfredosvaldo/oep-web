@@ -8,7 +8,7 @@ const config = {
           slate: '#0F172A',
           emerald: '#10B981',
           copper: '#F59E0B',
-          copperDark: '#B45309',
+          'copper-dark': '#B45309',
         },
         slate: {
           50: '#F8FAFC',

@@ -13,13 +13,13 @@ import { fmtMM } from '@/lib/format';
 echarts.use([ScatterChart, GeoComponent, TooltipComponent, CanvasRenderer]);
 
 const EG_COLOR: Record<number, string> = {
-  0: '#34D399', // Aprobado
-  1: '#F59E0B', // En evaluación
-  2: '#F97316', // Rechazado
+  0: '#0F172A', // Aprobado — tinta sobre papel
+  1: '#B45309', // En evaluación — cobre oscuro
+  2: '#C2410C', // Rechazado
   3: '#64748B', // Desistido-Caducado
-  4: '#475569', // No calificado-No admitido
+  4: '#94A3B8', // No calificado-No admitido
 };
-const EG_OPACITY: Record<number, number> = { 0: 0.5, 1: 0.95, 2: 0.55, 3: 0.3, 4: 0.3 };
+const EG_OPACITY: Record<number, number> = { 0: 0.55, 1: 0.95, 2: 0.6, 3: 0.45, 4: 0.5 };
 const EG_ORDER = [0, 1, 3, 2, 4];
 
 const symbolSize = (mmu: number) => Math.min(1.6 + Math.sqrt(Math.max(mmu, 0)) / 8, 14);
@@ -117,7 +117,7 @@ export default function HeroMap({ onReady }: { onReady?: () => void }) {
         aspectScale: 0.82,
         center: [-71.3, -34],
         zoom: 1.15,
-        itemStyle: { areaColor: '#131F38', borderColor: '#24334F', borderWidth: 1 },
+        itemStyle: { areaColor: '#F1F5F9', borderColor: '#CBD5E1', borderWidth: 1 },
       },
       series,
     };
@@ -208,15 +208,15 @@ export default function HeroMap({ onReady }: { onReady?: () => void }) {
         className={`h-full w-full transition-opacity duration-1000 ${data ? 'opacity-100' : 'opacity-0'}`}
       />
       {data && estado.anio > 0 && (
-        <div className="pointer-events-none absolute bottom-24 right-6 text-right lg:right-10">
-          <p className="font-display text-[64px] font-semibold leading-none tracking-tight text-white/90 tabular lg:text-[84px]">
+        <div className="pointer-events-none absolute right-6 top-20 hidden bg-oep-slate px-5 py-4 text-right md:block lg:right-10 lg:top-24">
+          <p className="font-display text-[56px] font-semibold leading-none tracking-tight text-white tabular lg:text-[72px]">
             {estado.anio}
           </p>
-          <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.2em] text-slate-400">
+          <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400">
             {estado.playing ? 'construyendo el mapa' : 'en pausa · explora los puntos'}
           </p>
-          <div className="ml-auto mt-2 h-0.5 w-40 overflow-hidden rounded bg-white/15">
-            <div className="h-full bg-oep-emerald transition-[width] duration-150" style={{ width: `${estado.progreso * 100}%` }} />
+          <div className="ml-auto mt-2 h-0.5 w-36 overflow-hidden bg-white/15">
+            <div className="h-full bg-oep-copper transition-[width] duration-150" style={{ width: `${estado.progreso * 100}%` }} />
           </div>
         </div>
       )}

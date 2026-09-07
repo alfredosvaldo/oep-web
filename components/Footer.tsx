@@ -1,9 +1,20 @@
 import Link from 'next/link';
+import { Logo } from '@/components/Header';
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-50 text-slate-700">
-      <div className="mx-auto grid max-w-content gap-10 px-6 py-14 md:grid-cols-3 lg:px-10">
+    <footer className="border-t border-slate-200 bg-slate-50 text-slate-700">
+      <div className="mx-auto max-w-content px-6 py-14 lg:px-10">
+        <div className="flex items-center gap-3 text-oep-slate">
+          <Logo className="h-6 w-6" />
+          <span className="font-display text-[15px] font-semibold tracking-tight">OEP</span>
+          <span className="h-4 w-px bg-slate-300" aria-hidden="true" />
+          <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+            Observatorio Económico de Permisos
+          </span>
+        </div>
+      </div>
+      <div className="mx-auto grid max-w-content gap-10 px-6 pb-14 md:grid-cols-3 lg:px-10">
         <div>
           <p className="oep-headline text-[18px] leading-6 text-oep-slate">Metodología transparente</p>
           <p className="mt-3 max-w-sm text-[14px] leading-5">
